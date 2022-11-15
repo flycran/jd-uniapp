@@ -61,19 +61,19 @@ class Request {
 				header: this.header,
 				success: (res) => {
 					// 响应成功  处理响应结果
-					const { data, resultCode, message } = res.data
+					const { data, code, msg } = res.data
 					// 状态码不为200 则错误
-					if (resultCode !== 200) {
-						uni.showToast({ title: message || '网络出现了问题', icon: 'none' })
+					if (code !== 200) {
+						uni.showToast({ title: msg || '网络出现了问题', icon: 'none' })
 						// 判断是否为416【token失效/token不存在】
-						if (resultCode === 416) {
+						if (code === 416) {
 							// 1. 清理登录状态
 							UserStore().clearUser()
 							// 2. 跳转登录页面【看需求】
 							// 堆叠页面  |  替换页面
-							uni.redirectTo({ url: '/subpkg/login/login' })
+							uni.redirectTo({ url: '/subpgk/login/login' })
 						}
-						return reject(message || '错误')
+						return reject(msg || '错误')
 					}
 					resolve(res.data)
 				},

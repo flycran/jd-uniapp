@@ -8,7 +8,7 @@ $http.baseUrl = 'http://jds.flycran.xyz'
 $http.beforeRequest = function(req) {
 	console.log('---发起了请求---');
 	// 在请求头中携带token
-	req.header.token = uni.getStorageSync('TOKEN') || ''
+	req.header.authorization = 'Bearer '+ uni.getStorageSync('TOKEN') || ''
 }
 
 // 配置请求后处理器

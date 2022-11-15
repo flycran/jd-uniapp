@@ -64,11 +64,14 @@
 import { onShow } from '@dcloudio/uni-app'
 import { reactive } from 'vue'
 import { getShopApi } from '@/api/modules/shop'
+import { UserStore } from '../../store/usre';
+const userStore= UserStore()
 const state = reactive({
 	fullist: []
 })
 const init = async () => {
-	const { data } = await getShopApi()
+	if (!userStore.token) return
+	const { data } = await getShopApi(userStore.token)
 	console.log(data);
 }
 onShow(() => {
