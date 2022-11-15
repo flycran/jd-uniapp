@@ -24,7 +24,6 @@ export const UserStore=defineStore('UserStore',{
 			const data = await getloginApi(user)
 			// 2. 存储token数据
 			this.token = data.token
-			console.log(this.token);
 			uni.setStorageSync('TOKEN', data.token)
 			// 3. 拉取用户信息
 			// this.getUserinfo()

@@ -14,24 +14,24 @@
 			<text class="lp">全部(1)</text>
 			<text>跨店满减(0)</text>
 		</view>
-		<view class="fomrs" v-for="(item, i) in 4" :key="i">
+		<view class="fomrs" v-for="item in fullist" :key="item.id">
 			<view class="fomrs-lo">
 				<uni-icons type="checkbox-filled" size="20" color="#ff0000"></uni-icons>
 				<uni-icons type="shop-filled" size="20"></uni-icons>
-				<text>基成玩具专营店</text>
+				<text>{{item.name}}</text>
 				<uni-icons type="right" size="16"></uni-icons>
 			</view>
-			<view class="fomrs-o">
+			<view class="fomrs-o" v-for="item2 in item.commoditys" :key="item2.id">
 				<uni-icons type="checkbox-filled" size="20" color="#ff0000"></uni-icons>
 				<view class="order-minm">
-					<view class="minm-list">
-						<view class="list-min"><image src="../../static/uni.png" mode=""></image></view>
+					<view class="minm-list" >
+						<view class="list-min"><image :src="'http://jdm.flycran.xyz/image/'+item2.commodity.cover" mode=""></image></view>
 						<view class="list-him">
-							<view class="him-lo"><text>szufuvhfdivuhfdiujvrgfsncsnvjebvd</text></view>
-							<view class="him-poo">34</view>
+							<view class="him-lo"><text>{{item2.specification}}</text></view>
+							<view class="him-poo">{{item2.specification}}</view>
 							<view class="him-gom">
-								<text>￥799.00</text>
-								<view class="gom-l"><uni-number-box :min="1" :max="9"></uni-number-box></view>
+								<text>￥{{item2.commodity.price}}</text>
+								<view class="gom-l"><uni-number-box :min="1" :max="9">{{item2.number}}</uni-number-box></view>
 							</view>
 						</view>
 					</view>
@@ -62,7 +62,7 @@
 
 <script setup>
 import { onShow } from '@dcloudio/uni-app'
-import { reactive } from 'vue'
+import { reactive, toRefs } from 'vue'
 import { getShopApi } from '@/api/modules/shop'
 import { UserStore } from '../../store/usre';
 const userStore= UserStore()
@@ -72,11 +72,13 @@ const state = reactive({
 const init = async () => {
 	if (!userStore.token) return
 	const { data } = await getShopApi(userStore.token)
+	state.fullist=data
 	console.log(data);
 }
 onShow(() => {
 	init()
 })
+const { fullist } = toRefs(state)
 </script>
 
 <style lang="scss">
@@ -180,7 +182,7 @@ onShow(() => {
 						display: flex;
 						justify-content: space-between;
 						.gom-l {
-							width: 130rpx;
+							width: 140rpx;
 						}
 						text {
 							color: red;
