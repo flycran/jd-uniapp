@@ -80,16 +80,25 @@
       }
     ]
   },
+  "subPackages": [
+    {
+      "root": "subpgk",
+      "pages": [
+        {
+          "path": "login/login",
+          "style": {
+            "navigationBarTitleText": "登录",
+            "enablePullDownRefresh": false
+          }
+        }
+      ]
+    }
+  ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8",
-	// // 注册全局组件
-	"usingComponents": {
-		// 图标
-		"van-icon": "/wxcomponents/vant/icon/index"
-	},
     "app-plus": {
       "background": "#efeff4"
     }
