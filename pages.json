@@ -34,7 +34,16 @@
         "enablePullDownRefresh": false
       }
     }
-  ],
+      ,{
+            "path" : "zf/Account_Settings/Account_Settings",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "帐户设置",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
   "tabBar": {
     "color": "#707070",
     "selectedColor":"#FA2C19",
@@ -76,6 +85,11 @@
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8",
+	// // 注册全局组件
+	"usingComponents": {
+		// 图标
+		"van-icon": "/wxcomponents/vant/icon/index"
+	},
     "app-plus": {
       "background": "#efeff4"
     }
