@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view class="lo">
-			<text class="lp">全部(1)</text>
+			<text class="lp">全部({{fullist.length}})</text>
 			<text>跨店满减(0)</text>
 		</view>
 		<view class="fomrs" v-for="item in fullist" :key="item.id">
@@ -27,7 +27,7 @@
 					<view class="minm-list" >
 						<view class="list-min"><image :src="'http://jdm.flycran.xyz/image/'+item2.commodity.cover" mode=""></image></view>
 						<view class="list-him">
-							<view class="him-lo"><text>{{item2.specification}}</text></view>
+							<view class="him-lo"><text>{{item2.commodity.name}}</text></view>
 							<view class="him-poo">{{item2.specification}}</view>
 							<view class="him-gom">
 								<text>￥{{item2.commodity.price}}</text>
@@ -56,6 +56,10 @@
 					</view>
 				</view>
 			</view>
+		</view>
+		<view class="foklo">
+		<uni-icons type="checkbox-filled" size="20" color="#ff0000"></uni-icons>
+			
 		</view>
 	</view>
 </template>
@@ -260,5 +264,13 @@ const { fullist } = toRefs(state)
 			}
 		}
 	}
+}
+.foklo{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 140rpx;
+	background: #aa00ff;
 }
 </style>
