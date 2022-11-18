@@ -1,93 +1,111 @@
 <template>
 	<view class="shop-cart">
-		<view class="hom">
-			<view class="hom-left">
-				<uni-icons type="location" size="16"></uni-icons>
-				<text>长沙市岳麓区</text>
+		<template>
+			<view class="hom">
+				<view class="hom-left">
+					<uni-icons type="location" size="16"></uni-icons>
+					<text>长沙市岳麓区</text>
+				</view>
+				<view class="hom-right">
+					<text>|</text>
+					<text @click="kp">编辑</text>
+				</view>
 			</view>
-			<view class="hom-right">
-				<text>|</text>
-				<text>编辑</text>
+			<view class="lo">
+				<text class="lp">全部({{ fullist.length }})</text>
+				<text>跨店满减(0)</text>
 			</view>
-		</view>
-		<view class="lo">
-			<text class="lp">全部({{fullist.length}})</text>
-			<text>跨店满减(0)</text>
-		</view>
-		<view class="fomrs" v-for="item in fullist" :key="item.id">
-			<view class="fomrs-lo">
-				<uni-icons type="checkbox-filled" size="20" color="#ff0000"></uni-icons>
-				<uni-icons type="shop-filled" size="20"></uni-icons>
-				<text>{{item.name}}</text>
-				<uni-icons type="right" size="16"></uni-icons>
+			<shopping class="fomrs" v-for="item in fullist" :key="item.id" :item="item" @change="changeShop(item, $event)"></shopping>
+			<view class="fomlog">
+				<view class="loh-lom"></view>
+				<text>可能你想要的</text>
+				<view class="loh-lom"></view>
 			</view>
-			<view class="fomrs-o" v-for="item2 in item.commoditys" :key="item2.id">
-				<uni-icons type="checkbox-filled" size="20" color="#ff0000"></uni-icons>
-				<view class="order-minm">
-					<view class="minm-list" >
-						<view class="list-min"><image :src="'http://jdm.flycran.xyz/image/'+item2.commodity.cover" mode=""></image></view>
-						<view class="list-him">
-							<view class="him-lo"><text>{{item2.commodity.name}}</text></view>
-							<view class="him-poo">{{item2.specification}}</view>
-							<view class="him-gom">
-								<text>￥{{item2.commodity.price}}</text>
-								<view class="gom-l"><uni-number-box :min="1" :max="9">{{item2.number}}</uni-number-box></view>
+			<view class="might">
+				<view class="good">
+					<view class="good-box">
+						<view class="good-item" v-for="(item, i) in 4" :key="i">
+							<image src="../../static/c1.png"></image>
+							<view class="good-desc">
+								<view class="title">【当日达】14英寸超薄平板电脑二合一安卓超清</view>
+								<view class="price">¥ 700</view>
+								<view class="">2万+条评论</view>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-		</view>
-		<view class="fomlog">
-			<view class="loh-lom"></view>
-			<text>可能你想要的</text>
-			<view class="loh-lom"></view>
-		</view>
-		<view class="might">
-			<view class="good">
-				<view class="good-box">
-					<view class="good-item" v-for="(item, i) in 4" :key="i">
-						<image src="../../static/c1.png"></image>
-						<view class="good-desc">
-							<view class="title">【当日达】14英寸超薄平板电脑二合一安卓超清</view>
-							<view class="price">¥ 700</view>
-							<view class="">2万+条评论</view>
-						</view>
-					</view>
+			<view class="foklo">
+				<view>
+					<MyCheckbox :value="all" @change="changeAll"></MyCheckbox>
+					<text>全选</text>
+				</view>
+				<view class="lko">
+					<view class="">总计:￥{{ price }}</view>
+					<button type="warn">领卷结算</button>
 				</view>
 			</view>
-		</view>
-		<view class="foklo">
-		<uni-icons type="checkbox-filled" size="20" color="#ff0000"></uni-icons>
-			
-		</view>
+		</template>
+		<template>
+			<view class="hom-right">
+				<text>|</text>
+				<text @click="kp">编辑</text>
+			</view>
+		</template>
 	</view>
 </template>
 
 <script setup>
 import { onShow } from '@dcloudio/uni-app'
-import { reactive, toRefs } from 'vue'
-import { getShopApi } from '@/api/modules/shop'
-import { UserStore } from '../../store/usre';
-const userStore= UserStore()
+import { reactive, ref, toRefs, computed } from 'vue'
+import { gewholeApi, getShopApi } from '@/api/modules/shop'
+import MyCheckbox from '../../components/shopping/MyCheckbox.vue'
+import { selectAll } from '@/utils/index.js'
+import { UserStore } from '../../store/usre'
+const userStore = UserStore()
 const state = reactive({
-	fullist: []
+	selected: true,
+	id: '',
+	comde: 0
 })
+const price = computed(() => {
+	let arr = []
+	fullist.value.forEach(item => {
+		arr = arr.concat(item.commoditys)
+	})
+	const lt = arr.filter(item => item.selected == 1)
+	const price = lt.reduce((sum, item) => sum + item.number * item.commodity.price, 0)
+	return price
+})
+const fullist = ref([])
 const init = async () => {
 	if (!userStore.token) return
 	const { data } = await getShopApi(userStore.token)
-	state.fullist=data
-	console.log(data);
+	fullist.value = data
 }
+function changeShop(item, value) {
+	item.selected = value
+}
+
+async function changeAll(v) {
+	all.value = v
+	await gewholeApi({ selected: v })
+}
+
+const { selectAll: all } = selectAll({
+	selectKey: 'selected',
+	data: fullist
+})
+
 onShow(() => {
 	init()
+	// console.log(all);
 })
-const { fullist } = toRefs(state)
 </script>
 
 <style lang="scss">
 .shop-cart {
-	background: #a7a7a7;
+	background: #f2f2f2;
 }
 .hom {
 	display: flex;
@@ -210,6 +228,7 @@ const { fullist } = toRefs(state)
 	}
 	text {
 		color: #666;
+		font-size: 24rpx;
 	}
 }
 .might {
@@ -265,12 +284,27 @@ const { fullist } = toRefs(state)
 		}
 	}
 }
-.foklo{
+.foklo {
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 140rpx;
 	background: #aa00ff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 30rpx;
+	.lko {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		button {
+			height: 70rpx;
+			line-height: 70rpx;
+			border-radius: 20rpx;
+			margin-left: 30rpx;
+		}
+	}
 }
 </style>

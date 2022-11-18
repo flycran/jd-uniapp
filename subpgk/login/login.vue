@@ -20,7 +20,7 @@ import { UserStore } from '../../store/usre'
 const formEl = ref()
 const userStore = UserStore()
 const state = reactive({
-	username: 'admin',
+	username: 'wsc',
 	password: '123456a'
 })
 const rules = {
