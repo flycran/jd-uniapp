@@ -17,7 +17,7 @@
 		</view> -->
 
 		<!-- 收货地址管理 -->
-		<view class="account_manage">
+		<view class="account_manage" @click="cs()">
 			<view class="item">
 				收货地址管理
 			</view>
@@ -94,12 +94,12 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {};
-		},
-	};
+<script setup>
+	const cs=()=>{
+		uni.navigateTo({
+			url:"/zf/ShipAddress/ShipAddress"
+		})
+	}
 </script>
 
 <style lang="scss">
