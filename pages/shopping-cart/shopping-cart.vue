@@ -1,58 +1,66 @@
 <template>
 	<view class="shop-cart">
-		<view class="hom">
-			<view class="hom-left">
-				<uni-icons type="location" size="16"></uni-icons>
-				<text>长沙市岳麓区</text>
+		<template>
+			<view class="hom">
+				<view class="hom-left">
+					<uni-icons type="location" size="16"></uni-icons>
+					<text>长沙市岳麓区</text>
+				</view>
+				<view class="hom-right">
+					<text>|</text>
+					<text @click="kp">编辑</text>
+				</view>
 			</view>
-			<view class="hom-right">
-				<text>|</text>
-				<text>编辑</text>
+			<view class="lo">
+				<text class="lp">全部({{ fullist.length }})</text>
+				<text>跨店满减(0)</text>
 			</view>
-		</view>
-		<view class="lo">
-			<text class="lp">全部({{ fullist.length }})</text>
-			<text>跨店满减(0)</text>
-		</view>
-		<shopping class="fomrs" v-for="item in fullist" :key="item.id" :item="item" @change="changeShop(item, $event)"></shopping>
-		<view class="fomlog">
-			<view class="loh-lom"></view>
-			<text>可能你想要的</text>
-			<view class="loh-lom"></view>
-		</view>
-		<view class="might">
-			<view class="good">
-				<view class="good-box">
-					<view class="good-item" v-for="(item, i) in 4" :key="i">
-						<image src="../../static/c1.png"></image>
-						<view class="good-desc">
-							<view class="title">【当日达】14英寸超薄平板电脑二合一安卓超清</view>
-							<view class="price">¥ 700</view>
-							<view class="">2万+条评论</view>
+			<shopping class="fomrs" v-for="item in fullist" :key="item.id" :item="item" @change="changeShop(item, $event)"></shopping>
+			<view class="fomlog">
+				<view class="loh-lom"></view>
+				<text>可能你想要的</text>
+				<view class="loh-lom"></view>
+			</view>
+			<view class="might">
+				<view class="good">
+					<view class="good-box">
+						<view class="good-item" v-for="(item, i) in 4" :key="i">
+							<image src="../../static/c1.png"></image>
+							<view class="good-desc">
+								<view class="title">【当日达】14英寸超薄平板电脑二合一安卓超清</view>
+								<view class="price">¥ 700</view>
+								<view class="">2万+条评论</view>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-		</view>
-		<view class="foklo">
-			<view>
-				<MyCheckbox :value="all" @change="changeAll"></MyCheckbox>
-				<text>全选</text>
+			<view class="foklo">
+				<view>
+					<MyCheckbox :value="all" @change="changeAll"></MyCheckbox>
+					<text>全选</text>
+				</view>
+				<view class="lko">
+					<view class="">总计:￥{{ price }}</view>
+					<button type="warn">领卷结算</button>
+				</view>
 			</view>
-			<view class="lko">
-				<view class="">总计:￥1344</view>
-				<button type="warn">领卷结算</button>
+		</template>
+		<template>
+			<view class="hom-right">
+				<text>|</text>
+				<text @click="kp">编辑</text>
 			</view>
-		</view>
+		</template>
 	</view>
 </template>
 
 <script setup>
 import { onShow } from '@dcloudio/uni-app'
-import { reactive, ref, toRefs } from 'vue'
+import { reactive, ref, toRefs, computed } from 'vue'
 import { gewholeApi, getShopApi } from '@/api/modules/shop'
 import MyCheckbox from '../../components/shopping/MyCheckbox.vue'
-import {selectAll} from '@/utils/index.js'
+import { selectAll } from '@/utils/index.js'
 import { UserStore } from '../../store/usre'
 const userStore = UserStore()
 const state = reactive({
@@ -60,12 +68,20 @@ const state = reactive({
 	id: '',
 	comde: 0
 })
+const price = computed(() => {
+	let arr = []
+	fullist.value.forEach(item => {
+		arr = arr.concat(item.commoditys)
+	})
+	const lt = arr.filter(item => item.selected == 1)
+	const price = lt.reduce((sum, item) => sum + item.number * item.commodity.price, 0)
+	return price
+})
 const fullist = ref([])
 const init = async () => {
 	if (!userStore.token) return
 	const { data } = await getShopApi(userStore.token)
 	fullist.value = data
-	console.log(data);
 }
 function changeShop(item, value) {
 	item.selected = value
@@ -73,16 +89,17 @@ function changeShop(item, value) {
 
 async function changeAll(v) {
 	all.value = v
-	await gewholeApi({selected:v})
+	await gewholeApi({ selected: v })
 }
 
-const {selectAll: all} = selectAll({
+const { selectAll: all } = selectAll({
 	selectKey: 'selected',
 	data: fullist
 })
 
 onShow(() => {
 	init()
+	// console.log(all);
 })
 </script>
 

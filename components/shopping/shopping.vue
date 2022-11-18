@@ -20,7 +20,7 @@
 							<view class="him-gom">
 								<text>￥{{ item2.commodity.price }}</text>
 								<view class="gom-l">
-									<uni-number-box :min="1" :max="9">{{ item2.number }}</uni-number-box>
+									<uni-number-box :value="item2.number" :min="1" :max="9" @change="shop(item2, $event)" ></uni-number-box>
 								</view>
 							</view>
 						</view>
@@ -34,9 +34,9 @@
 <script setup>
 import { onShow } from '@dcloudio/uni-app'
 import { onMounted, reactive, toRefs, watch, ref } from 'vue'
-import { gethsdhsApi, getselectApi, getShopApi } from '@/api/modules/shop'
+import { gethsdhsApi, getselectApi,genumberApi } from '@/api/modules/shop'
 import { UserStore } from '../../store/usre'
-import {selectAll} from '@/utils/index.js'
+import { selectAll } from '@/utils/index.js'
 import MyCheckbox from '@/components/shopping/MyCheckbox.vue'
 const emit = defineEmits(['change'])
 const userStore = UserStore()
@@ -46,26 +46,36 @@ const state = reactive({
 })
 const props = defineProps(['item'])
 const { commoditys } = toRefs(props.item)
-const {selectAll: all} = selectAll({
+const { selectAll: all } = selectAll({
 	selectKey: 'selected',
 	data: commoditys
 })
 async function selectItem(item, value) {
 	item.selected = value
-	await gethsdhsApi({id: item.id,selected: value})
+	await gethsdhsApi({ id: item.id, selected: value })
 }
-
-watch(all, (value) => {
-	emit('change', value)
-}, {
-	immediate: true
+const ko = (value) => {
+	console.log(value);
+}
+watch(all,value => {
+		emit('change', value)
+	},
+	{
+		immediate: true
+	}
+)
+watch(all, async value => {
+	await getselectApi(props.item.id, value)
 })
-watch(all, async (value) => {
-	await getselectApi(props.item.id,value)
-})
-watch(() => props.item.selected, async (value) => {
-	all.value = value
-})
+watch(() => props.item.selected,
+	async value => {
+		all.value = value
+	}
+)
+async function shop(item,value){
+	item.number=value
+	await genumberApi({id:item.id,number:value})
+}
 const shopEl = ref()
 onMounted(() => {
 })

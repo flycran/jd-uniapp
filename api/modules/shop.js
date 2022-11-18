@@ -10,3 +10,5 @@ export const getselectApi = (id,selected) => http.get(`/api/shopping-cart/select
 export const gethsdhsApi = (data) => http.get(`/api/shopping-cart/select`, data)
 // 全部
 export const gewholeApi = (data) => http.get(`/api/shopping-cart/select/all`, data)
+// 全部
+export const genumberApi = (data) => http.get(`/api/shopping-cart/number`, data)
