@@ -65,6 +65,7 @@ const init = async () => {
 	if (!userStore.token) return
 	const { data } = await getShopApi(userStore.token)
 	fullist.value = data
+	console.log(data);
 }
 function changeShop(item, value) {
 	item.selected = value
@@ -72,7 +73,7 @@ function changeShop(item, value) {
 
 async function changeAll(v) {
 	all.value = v
-	await gewholeApi(v)
+	await gewholeApi({selected:v})
 }
 
 const {selectAll: all} = selectAll({
