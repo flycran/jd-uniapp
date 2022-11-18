@@ -43,6 +43,16 @@
             }
             
         }
+        ,{
+            "path" : "zf/ShipAddress/ShipAddress",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "收货地址",
+                
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
   "tabBar": {
     "color": "#707070",
