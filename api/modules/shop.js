@@ -12,3 +12,5 @@ export const gethsdhsApi = (data) => http.get(`/api/shopping-cart/select`, data)
 export const gewholeApi = (data) => http.get(`/api/shopping-cart/select/all`, data)
 // 全部
 export const genumberApi = (data) => http.get(`/api/shopping-cart/number`, data)
+// 删除
+export const getdeletApi = (data) => http.post(`/api/shopping-cart/dels`, data)

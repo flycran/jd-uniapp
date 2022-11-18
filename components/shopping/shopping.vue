@@ -78,6 +78,7 @@ async function shop(item,value){
 }
 const shopEl = ref()
 onMounted(() => {
+	
 })
 </script>
 

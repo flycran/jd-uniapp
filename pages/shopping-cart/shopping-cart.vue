@@ -1,6 +1,6 @@
 <template>
 	<view class="shop-cart">
-		<template>
+		<template v-if="state.top === 'sop'">
 			<view class="hom">
 				<view class="hom-left">
 					<uni-icons type="location" size="16"></uni-icons>
@@ -8,7 +8,7 @@
 				</view>
 				<view class="hom-right">
 					<text>|</text>
-					<text @click="kp">编辑</text>
+					<text @click="topsop('lop')">编辑</text>
 				</view>
 			</view>
 			<view class="lo">
@@ -42,14 +42,26 @@
 				</view>
 				<view class="lko">
 					<view class="">总计:￥{{ price }}</view>
-					<button type="warn">领卷结算</button>
+					<button class="mini-btn" type="warn">领卷结算</button>
 				</view>
 			</view>
 		</template>
-		<template>
-			<view class="hom-right">
-				<text>|</text>
-				<text @click="kp">编辑</text>
+		<template v-else>
+			<view class="right">
+				<text style="color:	DarkGray;">|</text>
+				<text @click="topsop('sop')">编辑</text>
+			</view>
+			<shopping class="fomrs" v-for="item in fullist" :key="item.id" :item="item" @change="changeShop(item, $event)"></shopping>
+			<view class="lop"></view>
+			<view class="foklo">
+				<view>
+					<MyCheckbox :value="all" @change="changeAll"></MyCheckbox>
+					<text>全选</text>
+				</view>
+				<view class="lko">
+					<button class="mini-btn" type="primary" plain size="mini">移至收藏</button>
+					<button class="mini-btn" type="default" plain size="mini" @click="deljiete">删除</button>
+				</view>
 			</view>
 		</template>
 	</view>
@@ -58,16 +70,15 @@
 <script setup>
 import { onShow } from '@dcloudio/uni-app'
 import { reactive, ref, toRefs, computed } from 'vue'
-import { gewholeApi, getShopApi } from '@/api/modules/shop'
+import { gewholeApi, getShopApi, getdeletApi } from '@/api/modules/shop'
 import MyCheckbox from '../../components/shopping/MyCheckbox.vue'
 import { selectAll } from '@/utils/index.js'
 import { UserStore } from '../../store/usre'
 const userStore = UserStore()
 const state = reactive({
-	selected: true,
-	id: '',
-	comde: 0
+	top: 'sop'
 })
+
 const price = computed(() => {
 	let arr = []
 	fullist.value.forEach(item => {
@@ -78,6 +89,7 @@ const price = computed(() => {
 	return price
 })
 const fullist = ref([])
+const ids=ref([])
 const init = async () => {
 	if (!userStore.token) return
 	const { data } = await getShopApi(userStore.token)
@@ -86,26 +98,56 @@ const init = async () => {
 function changeShop(item, value) {
 	item.selected = value
 }
-
 async function changeAll(v) {
 	all.value = v
 	await gewholeApi({ selected: v })
 }
-
 const { selectAll: all } = selectAll({
 	selectKey: 'selected',
 	data: fullist
 })
-
+const topsop = top => {
+	state.top = top
+}
+const deljiete=async()=>{
+	console.log(selectGoods.value);
+	await getdeletApi({ids: selectGoods.value.map(e => e.id)})
+	init()
+}
+const selectGoods = computed(() => {
+	const ar = []
+	fullist.value.forEach(item=>{
+		item.commoditys.forEach(item=>{
+			if(item.selected){
+				ar.push(item) 
+			}
+		})
+	})
+	return ar
+})
 onShow(() => {
 	init()
-	// console.log(all);
 })
 </script>
 
 <style lang="scss">
 .shop-cart {
 	background: #f2f2f2;
+}
+.lop {
+	height: 120rpx;
+	width: 100%;
+	background: #f2f2f2;
+}
+.right {
+	width: 100%;
+	text-align: right;
+	margin-bottom: 30rpx;
+	background: #ffffff;
+	text {
+		margin-right: 30rpx;
+		font-size: 24rpx;
+	}
 }
 .hom {
 	display: flex;
@@ -139,81 +181,6 @@ onShow(() => {
 	.lp {
 		color: #ff0000;
 		margin-right: 25rpx;
-	}
-}
-.fomrs {
-	margin-bottom: 20rpx;
-	background: #fff;
-	.fomrs-lo {
-		// margin: 30rpx;
-		padding: 30rpx;
-		display: flex;
-		align-items: center;
-		text {
-			font-size: 25rpx;
-			font-weight: bold;
-			margin-right: 10rpx;
-		}
-	}
-	.fomrs-o {
-		display: flex;
-		align-items: center;
-		padding: 0 30rpx 30rpx 30rpx;
-		.order-minm {
-			width: 100%;
-			background: #eaeaea;
-			.minm-list {
-				width: 100%;
-				height: 250rpx;
-				background: #ffffff;
-				display: flex;
-				justify-content: space-between;
-				.list-min {
-					width: 200rpx;
-					height: 200rpx;
-					margin: 20rpx;
-					image {
-						width: 100%;
-						height: 100%;
-					}
-				}
-
-				.list-him {
-					flex: 1;
-					margin-left: 30rpx;
-					display: flex;
-					flex-direction: column;
-
-					.him-lo {
-						width: 90%;
-						margin-bottom: 20rpx;
-						font-size: 27rpx;
-						word-break: break-word;
-						font-weight: bold;
-						display: flex;
-						justify-content: space-between;
-					}
-
-					.him-poo {
-						background: #d5d5d5;
-						border-radius: 10rpx;
-						font-size: 20rpx;
-						margin-bottom: 20rpx;
-					}
-					.him-gom {
-						display: flex;
-						justify-content: space-between;
-						.gom-l {
-							width: 140rpx;
-						}
-						text {
-							color: red;
-							font-weight: bold;
-						}
-					}
-				}
-			}
-		}
 	}
 }
 .fomlog {
@@ -295,6 +262,7 @@ onShow(() => {
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 30rpx;
+	margin-top: 120rpx;
 	.lko {
 		display: flex;
 		justify-content: space-between;
