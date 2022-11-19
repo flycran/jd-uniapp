@@ -130,7 +130,7 @@ function settlement() {
 }
 
 .lop {
-  height: 120 rpx;
+  height: 120rpx;
   width: 100%;
   background: #f2f2f2;
 }
@@ -138,20 +138,20 @@ function settlement() {
 .right {
   width: 100%;
   text-align: right;
-  margin-bottom: 30 rpx;
+  margin-bottom: 30rpx;
   background: #ffffff;
 
   text {
-    margin-right: 30 rpx;
-    font-size: 24 rpx;
+    margin-right: 30rpx;
+    font-size: 24rpx;
   }
 }
 
 .hom {
   display: flex;
   justify-content: space-between;
-  padding: 0 30 rpx;
-  margin-bottom: 30 rpx;
+  padding: 0 30rpx;
+  margin-bottom: 30rpx;
   background: #fff;
 
   .hom-left {
@@ -159,31 +159,31 @@ function settlement() {
     align-items: center;
 
     text {
-      font-size: 27 rpx;
-      margin-right: 10 rpx;
+      font-size: 27rpx;
+      margin-right: 10rpx;
     }
   }
 
   .hom-right {
     text {
-      margin-left: 30 rpx;
-      font-size: 24 rpx;
+      margin-left: 30rpx;
+      font-size: 24rpx;
     }
   }
 }
 
 .lo {
-  padding-left: 30 rpx;
+  padding-left: 30rpx;
   background: #fff;
-  height: 50 rpx;
-  margin-bottom: 30 rpx;
-  font-size: 26 rpx;
-  line-height: 50 rpx;
+  height: 50rpx;
+  margin-bottom: 30rpx;
+  font-size: 26rpx;
+  line-height: 50rpx;
   font-weight: 400;
 
   .lp {
     color: #ff0000;
-    margin-right: 25 rpx;
+    margin-right: 25rpx;
   }
 }
 
@@ -191,17 +191,17 @@ function settlement() {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 30 rpx;
+  margin-bottom: 30rpx;
 
   .loh-lom {
     width: 30%;
-    height: 0.6 rpx;
+    height: 0.6rpx;
     background: #666;
   }
 
   text {
     color: #666;
-    font-size: 24 rpx;
+    font-size: 24rpx;
   }
 }
 
@@ -209,10 +209,10 @@ function settlement() {
   .good {
     .good-header {
       background: #f9f9f9;
-      height: 100 rpx;
-      line-height: 100 rpx;
+      height: 100rpx;
+      line-height: 100rpx;
       text-align: center;
-      font-size: 32 rpx;
+      font-size: 32rpx;
       font-weight: 500;
     }
 
@@ -221,26 +221,26 @@ function settlement() {
       flex-wrap: wrap;
 
       .good-skeleton {
-        margin: 40 rpx 0;
+        margin: 40rpx 0;
       }
 
       .good-item {
-        border-radius: 10 rpx;
+        border-radius: 10rpx;
         box-sizing: border-box;
         width: 45%;
-        border-bottom: 2 rpx solid #e9e9e9;
-        margin-left: 20 rpx;
-        margin-top: 20 rpx;
+        border-bottom: 2rpx solid #e9e9e9;
+        margin-left: 20rpx;
+        margin-top: 20rpx;
         background: #fff;
 
         image {
-          width: 340 rpx;
-          height: 240 rpx;
+          width: 340rpx;
+          height: 240rpx;
         }
 
         .good-desc {
-          font-size: 28 rpx;
-          padding: 20 rpx;
+          font-size: 28rpx;
+          padding: 20rpx;
 
           .title {
             color: #222333;
@@ -249,18 +249,18 @@ function settlement() {
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            margin-bottom: 20 rpx;
+            margin-bottom: 20rpx;
           }
 
           .price {
             font-weight: bold;
             color: #ff0000;
-            margin-bottom: 20 rpx;
+            margin-bottom: 20rpx;
           }
         }
 
         &:nth-child(2n + 1) {
-          border-right: 2 rpx solid #e9e9e9;
+          border-right: 2rpx solid #e9e9e9;
         }
       }
     }
@@ -271,13 +271,13 @@ function settlement() {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 140 rpx;
+  height: 140rpx;
   background: #aa00ff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30 rpx;
-  margin-top: 120 rpx;
+  padding: 0 30rpx;
+  margin-top: 120rpx;
 
   .lko {
     display: flex;
@@ -285,10 +285,10 @@ function settlement() {
     align-items: center;
     position: relative;
     button {
-      height: 70 rpx;
-      line-height: 70 rpx;
-      border-radius: 20 rpx;
-      margin-left: 30 rpx;
+      height: 70rpx;
+      line-height: 70rpx;
+      border-radius: 20rpx;
+      margin-left: 30rpx;
     }
   }
 }

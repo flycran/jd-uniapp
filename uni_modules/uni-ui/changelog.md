@@ -303,7 +303,7 @@
 - uni-datetime-picker 修复 范围起始点样式的背景色与今日样式的字体前景色融合，导致日期字体看不清的 bug
 - uni-datetime-picker 优化 弹出层在超出视窗边缘被遮盖的问题
 - uni-datetime-picker 新增 maskClick 事件
-- uni-datetime-picker 修复 特殊情况日历 rpx 布局错误的 bug，rpx -> px
+- uni-datetime-picker 修复 特殊情况日历rpx 布局错误的 bug，rpx -> px
 - uni-datetime-picker 修复 范围选择时清空返回值不合理的bug，['', ''] -> []
 - uni-datetime-picker 新增 日期时间显示框支持插槽
 - uni-file-picker 修复 sourceType 缺少默认值导致 ios 无法选择文件
