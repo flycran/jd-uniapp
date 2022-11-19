@@ -1,7 +1,7 @@
 import {
-	computed,
+	computed, isRef,
 	reactive,
-	ref
+	ref,
 } from 'vue'
 
 /**
@@ -33,14 +33,21 @@ function toKey(obj, position, value) {
  */
 export const selectAll = ({
 	selectKey = 'select',
-	data = ref([])
+	data
 }) => {
+	let _d
+	if(isRef(data)) {
+		_d = data.value
+	} else {
+		_d = data
+	}
 	const selectAll = computed({
 		get() {
-			return !data.value.some(e => !toKey(e, selectKey))
+			return !_d.some(e => !toKey(e, selectKey))
 		},
 		set(v) {
-			data.value.forEach(e => {
+			console.log()
+			_d.forEach(e => {
 				toKey(e, selectKey, v)
 			})
 		},

@@ -1,4 +1,4 @@
-<template>
+ <template>
 	<view class="shop">
 		<view class="fomrs">
 			<view class="fomrs-lo" ref="shopEl">
@@ -41,7 +41,6 @@ import MyCheckbox from '@/components/shopping/MyCheckbox.vue'
 const emit = defineEmits(['change'])
 const userStore = UserStore()
 const state = reactive({
-	fullist: [],
 	selected: ''
 })
 const props = defineProps(['item'])

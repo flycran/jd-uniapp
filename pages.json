@@ -33,30 +33,25 @@
         "navigationBarTitleText": "我的",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "zf/Account_Settings/Account_Settings",
+      "style": {
+        "navigationBarTitleText": "帐户设置",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "zf/ShipAddress/ShipAddress",
+      "style": {
+        "navigationBarTitleText": "收货地址",
+        "enablePullDownRefresh": false
+      }
     }
-      ,{
-            "path" : "zf/Account_Settings/Account_Settings",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "帐户设置",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "zf/ShipAddress/ShipAddress",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "收货地址",
-                
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+  ],
   "tabBar": {
     "color": "#707070",
-    "selectedColor":"#FA2C19",
+    "selectedColor": "#FA2C19",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -67,26 +62,26 @@
       {
         "pagePath": "pages/rebate/rebate",
         "iconPath": "static/tabbar/v.png",
-        "selectedIconPath":  "static/tabbar/v-b.png",
-        "text":  "超级返"
+        "selectedIconPath": "static/tabbar/v-b.png",
+        "text": "超级返"
       },
       {
         "pagePath": "pages/life-circle/life-circle",
         "iconPath": "static/tabbar/q.png",
-        "selectedIconPath":  "static/tabbar/q-b.png",
-        "text":  "生活圈"
+        "selectedIconPath": "static/tabbar/q-b.png",
+        "text": "生活圈"
       },
       {
         "pagePath": "pages/shopping-cart/shopping-cart",
         "iconPath": "static/tabbar/s.png",
-        "selectedIconPath":  "static/tabbar/s-b.png",
-        "text":  "购物车"
+        "selectedIconPath": "static/tabbar/s-b.png",
+        "text": "购物车"
       },
       {
         "pagePath": "pages/my/my",
         "iconPath": "static/tabbar/my.png",
-        "selectedIconPath":  "static/tabbar/my-b.png",
-        "text":  "我的"
+        "selectedIconPath": "static/tabbar/my-b.png",
+        "text": "我的"
       }
     ]
   },
@@ -98,6 +93,13 @@
           "path": "login/login",
           "style": {
             "navigationBarTitleText": "登录",
+            "enablePullDownRefresh": false
+          }
+        },
+        {
+          "path": "settlement/settlement",
+          "style": {
+            "navigationBarTitleText": "确定订单",
             "enablePullDownRefresh": false
           }
         }
