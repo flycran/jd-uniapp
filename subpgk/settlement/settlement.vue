@@ -9,10 +9,10 @@ const orderList = computed(() => {
   const nr = []
   list.forEach(e => {
     const commoditys = e.commoditys.filter(e => e.selected)
-    if(commoditys.length)
+    if (commoditys.length)
       nr.push(({
         ...e,
-        commoditys
+        commoditys,
       }))
   })
   console.log(nr)
@@ -35,47 +35,68 @@ const orderList = computed(() => {
 </script>
 
 <template>
-  <uni-card v-for="item in orderList" :key="item.id" :title="item.name">
-    <view class="goods" v-for="goods in item.commoditys">
-      <img class="img" :src="'http://jds.flycran.xyz/image/' + goods.commodity.cover" />
-      <view class="info">
-        <view class="name">
-          {{goods.commodity.name}}
-        </view>
-        <view class="specification">
-          {{goods.specification}}
-        </view>
-        <view class="priceb">
-          <view class="price">
-            <text style="font-size: 12px;">
-              ￥
-            </text>
-            <text style="font-size: 16px;font-weight: bold">
-              {{goods.commodity.price}}
-            </text>
+  <view class="flex-box">
+    <scroll-view scroll-y class="flex-1">
+      <uni-card v-for="item in orderList" :key="item.id" :title="item.name">
+        <view class="goods" v-for="goods in item.commoditys" :key="goods.id">
+          <img class="img" :src="'http://jds.flycran.xyz/image/' + goods.commodity.cover"/>
+          <view class="info">
+            <view class="name">
+              {{ goods.commodity.name }}
+            </view>
+            <view class="specification">
+              {{ goods.specification }}
+            </view>
+            <view class="priceb">
+              <view class="price">
+                <text style="font-size: 12px;">
+                  ￥
+                </text>
+                <text style="font-size: 16px;font-weight: bold">
+                  {{ goods.commodity.price }}
+                </text>
+              </view>
+              <view class="count">
+                x {{ goods.number }}
+              </view>
+            </view>
           </view>
-          <view class="count">
-            x {{goods.number}}
-          </view>
         </view>
-      </view>
+      </uni-card>
+    </scroll-view>
+    <view class="footer">
+
     </view>
-  </uni-card>
+  </view>
 </template>
 
 <style lang="scss" scoped>
+.flex-box {
+  .flex-1 {
+    flex: 1;
+    width: 0;
+    flex-shrink: 0;
+  }
+  .footer {
+    height: 80rpx;
+    background-color: #fff;
+  }
+}
 .goods {
   display: flex;
   margin-bottom: 16rpx;
+
   .img {
     width: 200rpx;
     height: 200rpx;
   }
-  .info  {
+
+  .info {
     flex: 1;
     width: 0;
     flex-shrink: 0;
     padding-left: 16rpx;
+
     .name {
       font-weight: bold;
       font-size: 16px;
@@ -86,21 +107,22 @@ const orderList = computed(() => {
       height: 44rpx;
       line-height: 44rpx;
     }
+
     .specification {
       font-size: 12px;
     }
+
     .priceb {
       display: flex;
       justify-content: space-between;
+
       .price {
         color: red;
       }
+
       .count {
 
       }
-    }
-    .count {
-
     }
   }
 }

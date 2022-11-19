@@ -1,41 +1,29 @@
 <template>
   <view class="shop-cart">
     <template v-if="state.top === 'sop'">
-      <view class="hom">
-        <view class="hom-left">
-          <uni-icons type="location" size="16"></uni-icons>
-          <text>长沙市岳麓区</text>
-        </view>
-        <view class="hom-right">
-          <text>|</text>
-          <text @click="topsop('lop')">编辑</text>
-        </view>
-      </view>
-      <view class="lo">
-        <text class="lp">全部({{ orderStore.list.length }})</text>
-        <text>跨店满减(0)</text>
-      </view>
-      <shopping class="fomrs" v-for="item in orderStore.list" :key="item.id" :item="item"
-                @change="changeShop(item, $event)"></shopping>
-      <view class="fomlog">
-        <view class="loh-lom"></view>
-        <text>可能你想要的</text>
-        <view class="loh-lom"></view>
-      </view>
-      <view class="might">
-        <view class="good">
-          <view class="good-box">
-            <view class="good-item" v-for="(item, i) in 4" :key="i">
-              <image src="../../static/c1.png"></image>
-              <view class="good-desc">
-                <view class="title">【当日达】14英寸超薄平板电脑二合一安卓超清</view>
-                <view class="price">¥ 700</view>
-                <view class="">2万+条评论</view>
-              </view>
-            </view>
+      <scroll-view class="flex-1" scroll-y>
+        <view class="hom">
+          <view class="hom-left">
+            <uni-icons type="location" size="16"></uni-icons>
+            <text>长沙市岳麓区</text>
+          </view>
+          <view class="hom-right">
+            <text>|</text>
+            <text @click="topsop('lop')">编辑</text>
           </view>
         </view>
-      </view>
+        <view class="lo">
+          <text class="lp">全部({{ orderStore.list.length }})</text>
+          <text>跨店满减(0)</text>
+        </view>
+        <shopping class="fomrs" v-for="item in orderStore.list" :key="item.id" :item="item"
+                  @change="changeShop(item, $event)"></shopping>
+        <view class="fomlog">
+          <view class="loh-lom"></view>
+          <text>可能你想要的</text>
+          <view class="loh-lom"></view>
+        </view>
+      </scroll-view>
       <view class="foklo">
         <view>
           <MyCheckbox :value="all" @change="changeAll"></MyCheckbox>
@@ -130,6 +118,14 @@ function settlement() {
 
 <style lang="scss">
 .shop-cart {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .flex-1 {
+    flex: 1;
+    flex-shrink: 0;
+    height: 0;
+  }
   background: #f2f2f2;
 }
 
@@ -272,7 +268,6 @@ function settlement() {
 }
 
 .foklo {
-  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -288,7 +283,7 @@ function settlement() {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    position: relative;
     button {
       height: 70 rpx;
       line-height: 70 rpx;
