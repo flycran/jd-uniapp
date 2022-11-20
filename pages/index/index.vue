@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="comtop">
+		<view class="comtop" @click="gotsearch">
 			<view class="comtop-lop">
 				<view class="comtop-left">
 					<uni-icons type="search" size="17" color="#cecece"></uni-icons>
@@ -24,7 +24,7 @@
 				<uni-grid :column="5" :highlight="true">
 					<uni-grid-item v-for="item in 10" :key="item">
 						<view class="grid-item-box">
-							<image src="@/static/c1.png" class="image" mode="aspectFill" />
+							<image src="https://m15.360buyimg.com/mobilecms/jfs/t1/175540/24/19329/6842/60ec0b0aEf35f7384/ec560dbf9b82b90b.png" class="image" mode="aspectFill" />
 							<text class="text">京东</text>
 						</view>
 					</uni-grid-item>
@@ -54,12 +54,11 @@
 		<view class="might">
 			<view class="good">
 				<view class="good-box">
-					<view class="good-item" v-for="(item, i) in 4" :key="i">
-						<image src="../../static/c1.png"></image>
+					<view class="good-item" v-for="item in fouliis" :key="item.id">
+						<image :src="'http://jdm.flycran.xyz/image/'+item.cover"></image>
 						<view class="good-desc">
-							<view class="title">【当日达】14英寸超薄平板电脑二合一安卓超清</view>
-							<view class="price">¥ 700</view>
-							<view class="">2万+条评论</view>
+							<view class="title">{{item.name}}</view>
+							<view class="price">¥ {{item.price}}</view>
 						</view>
 					</view>
 				</view>
@@ -68,7 +67,25 @@
 	</view>
 </template>
 
-<script setup></script>
+<script setup>
+import {onShow} from '@dcloudio/uni-app';
+import { ref } from "vue";
+import { getsearchApi } from "../../api/modules/search";
+ const fouliis=ref([])
+ 
+ const init= async()=>{
+	 const {data}= await getsearchApi({page:1,size:10})
+	 fouliis.value=data
+ }
+function gotsearch(){
+	uni.navigateTo({
+		url:"/subpgk/search/search"
+	})
+}
+onShow(()=>{
+	init()
+})
+</script>
 
 <style lang="scss">
 .comtop {
@@ -110,8 +127,10 @@
 }
 .example-body {
 	display: flex;
+	height: 80rpx;
 	margin: 0 30rpx;
 	justify-content: space-around;
+	align-items: center;
 }
 .swiper {
 	height: 350rpx;
