@@ -16,10 +16,17 @@
           <text class="lp">全部({{ orderStore.list.length }})</text>
           <text>跨店满减(0)</text>
         </view>
-        <shopping class="fomrs" v-for="item in orderStore.list" :key="item.id" :item="item"
+		<template v-if="orderStore.list.length">
+			 <shopping class="fomrs" v-for="item in orderStore.list" :key="item.id" :item="item"
                   @change="changeShop(item, $event)"></shopping>
+		</template>
+		<view class="empty" v-else>
+			<!-- mode=widthfix  实现高度随宽度自适应 -->
+			<image class="empty-cart" src="https://m15.360buyimg.com/mobilecms/jfs/t1/175540/24/19329/6842/60ec0b0aEf35f7384/ec560dbf9b82b90b.png" mode="widthFix"></image>
+			<view class="title">购物车空空如也</view>
+		</view>
         <view class="fomlog">
-          <view class="loh-lom"></view>
+          <view class="loh-lom"></view>  
           <text>可能你想要的</text>
           <view class="loh-lom"></view>
         </view>
@@ -290,6 +297,20 @@ function settlement() {
       border-radius: 20rpx;
       margin-left: 30rpx;
     }
+  }
+}
+.empty {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 300rpx;
+  .empty-cart {
+    width: 300rpx;
+    margin-bottom: 40rpx;
+  }
+  .title {
+    font-size: 32rpx;
+    margin-bottom: 40rpx;
   }
 }
 </style>
