@@ -54,7 +54,7 @@
 		<view class="might">
 			<view class="good">
 				<view class="good-box">
-					<view class="good-item" v-for="item in fouliis" :key="item.id">
+					<view class="good-item" v-for="item in fouliis" :key="item.id" @click="koph(item.id)">
 						<image :src="'http://jdm.flycran.xyz/image/'+item.cover"></image>
 						<view class="good-desc">
 							<view class="title">{{item.name}}</view>
@@ -76,6 +76,11 @@ import { getsearchApi } from "../../api/modules/search";
  const init= async()=>{
 	 const {data}= await getsearchApi({page:1,size:10})
 	 fouliis.value=data
+ }
+ const koph=(id)=>{
+	 uni.navigateTo({
+	 	url:"/subpgk/dlist/dlist?id="+id
+	 })
  }
 function gotsearch(){
 	uni.navigateTo({

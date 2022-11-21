@@ -7,7 +7,7 @@
 			</view>
 			<view class="search-btn" @click="search">搜索</view>
 		</view>
-		<view class="product-item" v-for="item in list" :key="item.goodsId">
+		<view class="product-item" v-for="item in list" :key="item.id" @click="koph(item.id)">
 			<!-- 左侧内容 -->
 			<image :src="'http://jdm.flycran.xyz/image/' + item.cover"></image>
 			<!-- 中间内容 -->
@@ -39,6 +39,11 @@ const search = async () => {
 	console.log(data)
 	state.list = data
 }
+const koph=(id)=>{
+	 uni.navigateTo({
+	 	url:"/subpgk/dlist/dlist?id="+id
+	 })
+ }
 // 页面加载
 onLoad(message => {})
 

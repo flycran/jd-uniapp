@@ -112,6 +112,16 @@
                 }
                 
                 }
+                
+                ,{
+                    "path" : "dlist/dlist",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "详情",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
     }
   ],
